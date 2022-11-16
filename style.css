@@ -1,0 +1,162 @@
+* {
+	padding: 0px;
+	margin: 0px;
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+a, a:link, a:visited  {
+    text-decoration: none;
+}
+
+a:hover  {
+    text-decoration: none;
+}
+
+ul, ul li {
+	list-style: none;
+}
+
+input, textarea, button, select {
+	font-family: inherit;
+    font-size: inherit;
+    color: inherit;
+    background-color: transparent;
+}
+
+button, input[type="submit"] {
+    display: inline-block;
+    box-shadow: none;
+    background-color: transparent;
+    background: none;
+    cursor: pointer;
+}
+
+input:focus, input:active,
+button:focus, button:active {
+    outline: none;
+}
+
+body {
+    background-color: #E5E5E5;
+    font-family: 'Roboto', sans-serif;
+}
+
+.wrapper {
+    display: flex;
+    width: 320px;
+    height: 535px;
+    background-color: white;
+    margin: 150px auto;
+    border: 1px solid black;
+    flex-wrap: wrap;
+}
+
+.setting-button {
+    display: flex;
+    margin-top: 8px;
+    margin-left: 8px;
+    margin-bottom: 8px;
+    width: 98px;
+    height: 32px;
+    border: 1px solid black;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    line-height: 19px;
+    font-weight: 400;
+}
+
+.setting-button:hover {
+    background-color: #bbd3e7;
+}
+
+.signout-button {
+    display: flex;
+    margin-top: 8px;
+    margin-left: 138px;
+    width: 66px;
+    height: 32px;
+    border: 1px solid black;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    line-height: 19px;
+    font-weight: 400;
+}
+
+.signout-button:hover {
+    background-color: #bbd3e7;
+}
+
+.chat-field {
+    display: flex;
+    flex-wrap: wrap;
+    /* justify-content: flex-end; */
+    flex-direction: column-reverse;
+    width: 302px;
+    height: 437px;
+    border: 1px solid black;
+    margin-left: 8px;
+    margin-bottom: 8px;
+    font-size: 16px;
+    line-height: 19px;
+    font-weight: 400;
+}
+
+.comment-field {
+    padding-left: 5px;
+    margin-left: 8px;
+    margin-bottom: 8px;
+    width: 262px;
+    height: 32px;
+    border: 1px solid black;
+}
+
+.send-button {
+    margin-left: 8px;
+    width: 32px;
+    height: 32px;
+    border: 1px solid black;
+}
+
+.my-message {
+    margin-bottom: 8px;
+    margin-right: 8px;
+    margin-left: 8px;
+    padding: 8px;
+    border-radius: 10px 10px 0px 10px;
+    align-self: flex-end;
+    background-color: #bbd3e7;
+    display: flex;
+    flex-direction: column;
+}
+
+.companion-message {
+    margin-bottom: 8px;
+    margin-right: 8px;
+    margin-left: 8px;
+    padding: 8px;
+    border-radius: 10px 10px 10px 0px;
+    align-self: flex-start;
+    background-color: #bbd3e7;
+    display: flex;
+    flex-direction: column;
+}
+
+.message-text {
+    flex-wrap: wrap;
+}
+
+.message-time {
+    margin-top: 4px;
+    font-style: italic;
+    font-size: 14px;
+    line-height: 16px;
+    font-weight: 300;
+    align-self: flex-end;
+}

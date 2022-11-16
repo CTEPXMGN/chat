@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;1,300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/style.css">
+    <title>Chat</title>
+</head>
+<body>
+    <div class="wrapper">
+        <button class="setting-button">Настройки</button>
+        <button class="signout-button">Выйти</button>
+        <div class="chat-field">
+            <div class="my-message">
+                <p class="message-text">Я: Добрый день!</p>
+                <p class="message-time">18:45</p>
+            </div>
+            <div class="companion-message">
+                <p class="message-text">Собеседник мой: А это второе и, кажется, оно очень 
+                    длинное, чтобы поместиться на одной строке</p>
+                <p class="message-time">18:45</p>
+            </div>
+            <div class="companion-message">
+                <p class="message-text">Собеседник мой: Добрый день!</p>
+                <p class="message-time">18:45</p>
+            </div>
+            <div class="my-message">
+                <p class="message-text">Я: Добрый день!</p>
+                <p class="message-time">18:45</p>
+            </div>
+        </div>
+        <input class="comment-field" type="text" placeholder="сообщение...">
+        <button class="send-button" type="submit">&#10148;</button>
+    </div>
+    <div class="settings-modal hide">
+        <div class="settings-modal__container">
+            <div class="settings-modal__body">
+                <p class="settings-modal__head">Настройки</p>
+                <div class="settings-modal__close">
+                    <a href="#">&times;</a>
+                </div>
+                <p class="settings-modal__chat-name">Имя в чате</p>
+                <input class="settings-modal__input-name" type="text" placeholder="Ваше имя">
+                <button class="settings-modal__button" type="submit">&#10148;</button>
+            </div>
+        </div>
+    </div>
+    <script src="/main.js"></script>
+</body>
+</html>
