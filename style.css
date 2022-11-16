@@ -160,3 +160,75 @@ body {
     font-weight: 300;
     align-self: flex-end;
 }
+
+.settings-modal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    
+    background-color: rgba(0, 0, 0, .4);
+
+    transition: .2s;
+}
+
+.hide {
+    visibility: hidden;
+    opacity: 0;
+}
+
+.settings-modal__container {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    width: 273px;
+    height: 319px;
+    background-color: #fff;
+    transition: .2s;
+    transform: translateY(-60px);
+}
+
+.settings-modal__input-name {
+    padding-left: 5px;
+    margin-left: 14px;
+    margin-bottom: 8px;
+    width: 201px;
+    height: 32px;
+    border: 1px solid black;
+}
+
+.settings-modal__button {
+    margin-left: 8px;
+    margin-right: 14px;
+    width: 32px;
+    height: 32px;
+    border: 1px solid black;
+}
+
+.settings-modal__head {
+    margin-top: 16px;
+    margin-left: 14px;
+}
+
+.settings-modal__body {
+    position: relative;
+}
+
+.settings-modal__close {
+    width: 14px;
+    height: 14px;
+    border: none;
+    position: absolute;
+    top: 16px;
+    right: 16px;
+}
+
+.settings-modal__chat-name {
+    margin-top: 16px;
+    margin-left: 14px;
+    margin-bottom: 8px;
+}
