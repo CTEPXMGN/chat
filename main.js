@@ -7,6 +7,7 @@ const UI_ELEMENTS = {
     MY_TMPL: document.querySelector('#my-tmpl').content,
     COMPANION_TMPL: document.querySelector('#companion-tmpl').content,
     CHAT_FIELD: document.querySelector('.chat-field'),
+    SEND_FORM: document.querySelector('.sendForm'),
 };
 
 let myName = '';
@@ -20,13 +21,15 @@ UI_ELEMENTS.SETTINGS_MODAL_CLOSE.addEventListener('click', function() {
 });
 
 UI_ELEMENTS.SEND_BUTTON.addEventListener('click', sendMessage);
+UI_ELEMENTS.SEND_FORM.addEventListener('submit', sendMessage);
 
 function getTime() {
     const date = new Date();
     return `${date.getHours()}:${date.getMinutes()}`;
 };
 
-function sendMessage() {
+function sendMessage(event) {
+    event.preventDefault();
     if (UI_ELEMENTS.INPUT_MESSAGE.value) {
         const myTmplClone = UI_ELEMENTS.MY_TMPL.cloneNode(true).querySelector('.my-message');
         const myTmplText = myTmplClone.querySelector('.message-text');

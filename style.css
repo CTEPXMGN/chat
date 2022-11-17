@@ -95,7 +95,6 @@ body {
 
 .chat-field {
     display: flex;
-    flex-wrap: wrap;
     flex-direction: column-reverse;
     max-width: 302px;
     height: 437px;
@@ -105,12 +104,17 @@ body {
     font-size: 16px;
     line-height: 19px;
     font-weight: 400;
-    overflow-y: scroll;
+    overflow: auto;
 }
 
 .chat-field::-webkit-scrollbar {
-    width: 0;
-    height: 0;
+    width: 5px;
+}
+.chat-field::-webkit-scrollbar-track {
+    background: #bbd3e7;
+}
+.chat-field::-webkit-scrollbar-thumb {
+    background-color: #9ab9d3;
 }
 
 .message-input {
@@ -123,7 +127,7 @@ body {
 }
 
 .send-button {
-    margin-left: 8px;
+    margin-left: 5px;
     width: 32px;
     height: 32px;
     border: 1px solid black;
