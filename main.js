@@ -1,9 +1,11 @@
 const UI_ELEMENTS = {
-    SETTING_BUTTON: document.querySelector('.setting-button'),
+    SETTINGS_BUTTON: document.querySelector('.setting-button'),
     SETTINGS_MODAL_CLOSE: document.querySelector('.settings-modal__close'),
     SETTINGS_MODAL: document.querySelector('.settings-modal'),
     SETTINGS_MODAL_FORM: document.querySelector('.settings-modal__form'),
     SETTINGS_MODAL_INPUT_NAME: document.querySelector('.settings-modal__input-name'),
+    SETTINGS_MODAL_BUTTON: document.querySelector('.settings-modal__button'),
+    USER_NAME: document.querySelector('.user-name'),
     SEND_BUTTON: document.querySelector('.send-button'),
     INPUT_MESSAGE: document.querySelector('.message-input'),
     MY_TMPL: document.querySelector('#my-tmpl').content,
@@ -14,16 +16,18 @@ const UI_ELEMENTS = {
 
 let myName = '';
 
-UI_ELEMENTS.SETTING_BUTTON.addEventListener('click', showSettings);
+UI_ELEMENTS.SETTINGS_BUTTON.addEventListener('click', showSettings);
 UI_ELEMENTS.SETTINGS_MODAL_CLOSE.addEventListener('click', hideSettings);
 UI_ELEMENTS.SEND_BUTTON.addEventListener('click', sendMessage);
 UI_ELEMENTS.SEND_FORM.addEventListener('submit', sendMessage);
 UI_ELEMENTS.SETTINGS_MODAL_FORM.addEventListener('submit', saveName);
+UI_ELEMENTS.SETTINGS_MODAL_BUTTON.addEventListener('click', saveName);
 
 function saveName(event) {
     event.preventDefault();
     myName = UI_ELEMENTS.SETTINGS_MODAL_INPUT_NAME.value;
     hideSettings();
+    UI_ELEMENTS.USER_NAME.textContent = UI_ELEMENTS.SETTINGS_MODAL_INPUT_NAME.value;
     UI_ELEMENTS.SETTINGS_MODAL_INPUT_NAME.value = '';
 };
 
