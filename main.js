@@ -9,7 +9,7 @@ const UI_ELEMENTS = {
     CHAT_FIELD: document.querySelector('.chat-field'),
 };
 
-
+let myName = '';
 
 UI_ELEMENTS.SETTING_BUTTON.addEventListener('click', function() {
     UI_ELEMENTS.SETTINGS_MODAL.classList.remove('hide');
@@ -24,7 +24,7 @@ UI_ELEMENTS.SEND_BUTTON.addEventListener('click', sendMessage);
 function getTime() {
     const date = new Date();
     return `${date.getHours()}:${date.getMinutes()}`;
-}
+};
 
 function sendMessage() {
     if (UI_ELEMENTS.INPUT_MESSAGE.value) {
