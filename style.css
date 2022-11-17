@@ -133,11 +133,18 @@ body {
     border: 1px solid black;
 }
 
+.send-form {
+    width: 309px;
+    display: flex;
+    justify-content: space-between;
+}
 .my-message {
     margin-bottom: 8px;
     margin-right: 8px;
     margin-left: 8px;
     padding: 8px;
+    max-width: 280px;
+    overflow-wrap: break-word;
     border-radius: 10px 10px 0px 10px;
     align-self: flex-end;
     background-color: #bbd3e7;
@@ -150,6 +157,8 @@ body {
     margin-right: 8px;
     margin-left: 8px;
     padding: 8px;
+    max-width: 280px;
+    overflow-wrap: break-word;
     border-radius: 10px 10px 10px 0px;
     align-self: flex-start;
     background-color: #bbd3e7;
@@ -238,4 +247,9 @@ body {
     margin-top: 16px;
     margin-left: 14px;
     margin-bottom: 8px;
+}
+
+.settings-modal__form {
+    display: flex;
+    justify-content: space-between;
 }
