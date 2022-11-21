@@ -15,7 +15,7 @@
         <div class="header">
             <button class="setting-button">Настройки</button>
             <p class="user-name"></p>
-            <button class="signout-button">Выйти</button>
+            <button class="sign-button">Войти</button>
         </div>
         <div class="chat-field">
             <div class="my-message">
@@ -50,6 +50,32 @@
                 <form class="settings-modal__form">
                     <input class="settings-modal__input-name" type="text" placeholder="Ваше имя">
                     <button class="settings-modal__button" type="submit">&#10148;</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="sign-modal hide">
+        <div class="sign-modal__container">
+            <div class="sign-modal__body">
+                <p class="sign-modal__head">Авторизация</p>
+                <button class="sign-modal__close">&#10006;</button>
+                <p class="sign-modal__chat-name">Почта:</p>
+                <form class="sign-modal__form">
+                    <input class="sign-modal__input-email" type="email" placeholder="Ваша почта">
+                    <button class="sign-modal__button" type="submit">Получить код</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="confirm-modal hide">
+        <div class="confirm-modal__container">
+            <div class="confirm-modal__body">
+                <p class="confirm-modal__head">Подтверждение</p>
+                <button class="confirm-modal__close">&#10006;</button>
+                <p class="confirm-modal__chat-name">Код:</p>
+                <form class="confirm-modal__form">
+                    <input class="confirm-modal__input-name" type="text" placeholder="Код подтверждения">
+                    <button class="confirm-modal__button" type="submit">Получить код</button>
                 </form>
             </div>
         </div>
