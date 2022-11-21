@@ -18,6 +18,11 @@ const UI_ELEMENTS = {
     SIGN_MODAL: document.querySelector('.sign-modal'),
     SIGN_MODAL_CLOSE: document.querySelector('.sign-modal__close'),
     SIGN_MODAL_INPUT_EMAIL: document.querySelector('.sign-modal__input-email'),
+    CONFIRM_MODAL: document.querySelector('.confirm-modal'),
+    CONFIRM_MODAL_CLOSE: document.querySelector('.confirm-modal__close'),
+    CONFIRM_MODAL_FORM: document.querySelector('.confirm-modal__form'),
+    CONFIRM_MODAL_INPUT_TOKEN: document.querySelector('.confirm-modal__input-token'),
+    CONFIRM_MODAL_BUTTON: document.querySelector('.confirm-modal__button'),
 };
 
 let user = {
@@ -38,14 +43,8 @@ UI_ELEMENTS.SIGN_BUTTON.addEventListener('click', showSignIn);
 UI_ELEMENTS.SIGN_MODAL_BUTTON.addEventListener('click', getCode);
 UI_ELEMENTS.SIGN_MODAL_FORM.addEventListener('submit', getCode);
 UI_ELEMENTS.SIGN_MODAL_CLOSE.addEventListener('click', hideSignIn);
-
-function saveName(event) {
-    event.preventDefault();
-    user.isSigned = UI_ELEMENTS.SETTINGS_MODAL_INPUT_NAME.value;
-    hideSettings();
-    UI_ELEMENTS.USER_NAME.textContent = UI_ELEMENTS.SETTINGS_MODAL_INPUT_NAME.value;
-    UI_ELEMENTS.SETTINGS_MODAL_INPUT_NAME.value = '';
-};
+UI_ELEMENTS.CONFIRM_MODAL_CLOSE.addEventListener('click', hideConfirm);
+UI_ELEMENTS.CONFIRM_MODAL_FORM.addEventListener('submit', saveCoockie);
 
 function showSettings() {
     UI_ELEMENTS.SETTINGS_MODAL.classList.remove('hide');
@@ -68,22 +67,83 @@ function hideSignIn() {
     UI_ELEMENTS.SIGN_MODAL.classList.add('hide');
 };
 
+function showConfirm() {
+    UI_ELEMENTS.CONFIRM_MODAL.classList.remove('hide');
+};
+
+function hideConfirm() {
+    UI_ELEMENTS.CONFIRM_MODAL.classList.add('hide');
+};
+
+function inputChat() {
+
+};
+
+function saveCoockie(event) {
+    event.preventDefault();
+
+    document.cookie = 'token=' + UI_ELEMENTS.CONFIRM_MODAL_INPUT_TOKEN.value;
+    hideConfirm();
+    showSettings();
+};
+
+function saveName(event) {
+    event.preventDefault();
+    user.isSigned = UI_ELEMENTS.SETTINGS_MODAL_INPUT_NAME.value;
+    hideSettings();
+    UI_ELEMENTS.USER_NAME.textContent = UI_ELEMENTS.SETTINGS_MODAL_INPUT_NAME.value;
+    UI_ELEMENTS.SETTINGS_MODAL_INPUT_NAME.value = '';
+};
+
+async function setName() {
+    const myName = {
+        name: UI_ELEMENTS.SETTINGS_MODAL_INPUT_NAME.value,
+    }
+
+    const response = await fetch(URL, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8',
+            'Authorization': ` ${token}`
+        },
+        body: JSON.stringify(myName),
+    });
+
+};
+
+async function getUser() {
+
+    const response = await fetch(URL, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8',
+            'Authorization': ` ${token}`
+        },
+        body: JSON.stringify(myEmail),
+    });
+
+    let result = await response.json();
+}
+
 async function getCode(event) {
     event.preventDefault();
 
-    const myEmail = UI_ELEMENTS.SIGN_MODAL_INPUT_EMAIL.value;
+    let myEmail = {
+        email: UI_ELEMENTS.SIGN_MODAL_INPUT_EMAIL.value,
+    };
 
-    let response = await fetch(URL, {
+    const response = await fetch(URL, {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json;charset=utf-8'
+            'Content-Type': 'application/json;charset=utf-8',
         },
-        body: JSON.stringify(myEmail)
+        body: JSON.stringify(myEmail),
     });
 
     let result = await response.json();
 
-    console.log(result);
+    hideSignIn();
+    showConfirm();
 };
 
 function sendMessage(event) {

@@ -363,12 +363,12 @@ body {
     top: 16px;
     right: 16px;
 }
-.confirm-modal__chat-name {
+.confirm-modal__code {
     margin-top: 16px;
     margin-left: 14px;
     margin-bottom: 8px;
 }
-.confirm-modal__input-name {
+.confirm-modal__input-token {
     padding-left: 5px;
     margin-left: 14px;
     margin-bottom: 8px;
