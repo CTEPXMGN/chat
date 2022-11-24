@@ -88,7 +88,6 @@ body {
 .sign-button {
     display: flex;
     margin-top: 8px;
-    /* margin-left: 138px; */
     width: 66px;
     height: 32px;
     border: 1px solid black;
@@ -118,7 +117,7 @@ body {
 }
 
 .chat-field::-webkit-scrollbar {
-    width: 5px;
+    width: 4px;
 }
 .chat-field::-webkit-scrollbar-track {
     background: #bbd3e7;
