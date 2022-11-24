@@ -77,7 +77,6 @@ async function getUser() {
         },
     });
     let result = await response.json();
-    console.log(result);
 };
 
 function getCookie(name) {
@@ -123,7 +122,6 @@ async function getCode(event) {
 
     if (response.ok) {
         let result = await response.json();
-        // console.log(result);
     
         hideSignIn();
         showConfirm();
