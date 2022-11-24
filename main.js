@@ -60,8 +60,8 @@ async function getHistory() {
         },
     });
     let result = await response.json();
-    // console.log(result.messages);
     const messages = result.messages;
+    console.log(messages);
 
     for (let i = 0; i <= 10; i++) {
         renderMessages(messages[i]);
@@ -116,7 +116,7 @@ async function getCode(event) {
         email: UI_ELEMENTS.SIGN_MODAL_INPUT_EMAIL.value,
     };
 
-    const response = await fetch(URL, {
+    const response = await fetch(URLS.URL, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json;charset=utf-8',

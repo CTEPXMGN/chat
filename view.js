@@ -29,3 +29,4 @@ export const URLS ={
     URL: 'https://edu.strada.one/api/user',
     URL_NAME: 'https://edu.strada.one/api/user/me',
     URL_MESSAGES: 'https://edu.strada.one/api/messages',
+};
