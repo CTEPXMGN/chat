@@ -23,6 +23,7 @@ export const UI_ELEMENTS = {
     CONFIRM_MODAL_FORM: document.querySelector('.confirm-modal__form'),
     CONFIRM_MODAL_INPUT_TOKEN: document.querySelector('.confirm-modal__input-token'),
     CONFIRM_MODAL_BUTTON: document.querySelector('.confirm-modal__button'),
+    POPUP: document.querySelector('.popup'),
 };
 
 export const URLS ={
@@ -30,3 +31,5 @@ export const URLS ={
     URL_NAME: 'https://edu.strada.one/api/user/me',
     URL_MESSAGES: 'https://edu.strada.one/api/messages',
 };
+
+export const email = 'fuser-mgn@yandex.ru';

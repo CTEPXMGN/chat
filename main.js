@@ -1,4 +1,4 @@
-import {UI_ELEMENTS, URLS} from "./view.js";
+import {UI_ELEMENTS, URLS, email} from "./view.js";
 
 UI_ELEMENTS.SETTINGS_BUTTON.addEventListener('click', showSettings);
 UI_ELEMENTS.SETTINGS_MODAL_CLOSE.addEventListener('click', hideSettings);
@@ -57,9 +57,10 @@ async function getHistory() {
     });
     let result = await response.json();
     const messages = result.messages;
-    console.log(messages);
+    // console.log(messages);
 
     messages.forEach(element => {
+
         renderMessages(element);
     });
 };
@@ -122,7 +123,7 @@ async function getCode(event) {
 
     if (response.ok) {
         let result = await response.json();
-        console.log(result);
+        // console.log(result);
     
         hideSignIn();
         showConfirm();
@@ -135,13 +136,25 @@ async function getCode(event) {
 const socket = new WebSocket(`wss://edu.strada.one/websockets?${getCookie('token')}`);
 
 socket.onopen = function(e) {
-    alert('есть контакт');
+    console.log('Connected...');
 };
 
-function sendMessage() {
+socket.onmessage = function(event) {
+    const data = JSON.parse(event.data);
+    renderMessages(data.text);
+};
+
+function sendMessage(e) {
+    e.preventDefault();
+
     socket.send(JSON.stringify({ text: UI_ELEMENTS.INPUT_MESSAGE.value }));
     socket.onmessage = function(event) {
-        renderMessages(event.data);
+        const data = JSON.parse(event.data);
+        if (data.user.email === email) {
+            sendMyMessage(event, data);
+        } else {
+            renderMessages(data);
+        };
     };
 };
 
@@ -149,26 +162,23 @@ function renderMessages(item) {
     const companionTmplClone = UI_ELEMENTS.COMPANION_TMPL.cloneNode(true).querySelector('.companion-message');
     const companionTmplText = companionTmplClone.querySelector('.message-text');
     const companionTmplTime = companionTmplClone.querySelector('.message-time');
-    // myTmplText.textContent = item.text + ': ' + UI_ELEMENTS.INPUT_MESSAGE.value;
     companionTmplText.textContent = item.user.name + ': ' + item.text;
     companionTmplTime.textContent = getTime();
     UI_ELEMENTS.CHAT_FIELD.prepend(companionTmplClone);
 };
 
-// function sendMessage(event, item) {
-//     event.preventDefault();
-//     if (UI_ELEMENTS.INPUT_MESSAGE.value) {
-//         console.log(item);
-//         const myTmplClone = UI_ELEMENTS.MY_TMPL.cloneNode(true).querySelector('.my-message');
-//         const myTmplText = myTmplClone.querySelector('.message-text');
-//         const myTmplTime = myTmplClone.querySelector('.message-time');
-//         myTmplText.textContent = item.text + ': ' + UI_ELEMENTS.INPUT_MESSAGE.value;
-//         myTmplText.textContent = item.user.name + ': ' + item.text;
-//         myTmplTime.textContent = getTime();
-//         UI_ELEMENTS.CHAT_FIELD.prepend(myTmplClone);
+function sendMyMessage(event, item) {
+    event.preventDefault();
+    if (UI_ELEMENTS.INPUT_MESSAGE.value) {
+        const myTmplClone = UI_ELEMENTS.MY_TMPL.cloneNode(true).querySelector('.my-message');
+        const myTmplText = myTmplClone.querySelector('.message-text');
+        const myTmplTime = myTmplClone.querySelector('.message-time');
+        myTmplText.textContent = item.user.name + ': ' + item.text;
+        myTmplTime.textContent = getTime();
+        UI_ELEMENTS.CHAT_FIELD.prepend(myTmplClone);
     
-//         UI_ELEMENTS.INPUT_MESSAGE.value = '';
-//     } else {
-//         alert('Введите сообщение.');
-//     };
-// };
+        UI_ELEMENTS.INPUT_MESSAGE.value = '';
+    } else {
+        alert('Введите хоть что-нибудь.');
+    };
+};

@@ -386,3 +386,20 @@ body {
 .confirm-modal__button:hover {
     background-color: #bbd3e7;
 }
+
+.popup {
+    position: absolute;
+    top: 450px;
+    left: 40%;
+    display: flex;
+    justify-content: center;
+    width: 200px;
+    height: 100px;
+    background-color: #95b7d3c9;
+    transition: .2s;
+    border-radius: 10px;
+}
+
+.popup__text {
+    margin: auto;
+}
