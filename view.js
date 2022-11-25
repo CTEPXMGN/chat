@@ -8,8 +8,7 @@ export const UI_ELEMENTS = {
     USER_NAME: document.querySelector('.user-name'),
     SEND_BUTTON: document.querySelector('.send-button'),
     INPUT_MESSAGE: document.querySelector('.message-input'),
-    MY_TMPL: document.querySelector('#my-tmpl').content,
-    COMPANION_TMPL: document.querySelector('#companion-tmpl').content,
+    TMPL: document.querySelector('#tmpl').content,
     CHAT_FIELD: document.querySelector('.chat-field'),
     SEND_FORM: document.querySelector('.send-form'),
     SIGN_BUTTON: document.querySelector('.sign-button'),
@@ -33,3 +32,8 @@ export const URLS ={
 };
 
 export const email = 'fuser-mgn@yandex.ru';
+
+export const messageClasses = {
+    my: 'my-message',
+    companion: 'companion-message',
+};
