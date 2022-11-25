@@ -56,8 +56,8 @@ async function getHistory() {
         },
     });
     let result = await response.json();
-    const messages = result.messages;
-    // console.log(messages);
+    const messages = result.messages.reverse();
+    console.log(messages);
 
     messages.forEach(element => {
 
@@ -162,7 +162,7 @@ function renderMessages(item) {
     const companionTmplTime = companionTmplClone.querySelector('.message-time');
     companionTmplText.textContent = item.user.name + ': ' + item.text;
     companionTmplTime.textContent = getTime();
-    UI_ELEMENTS.CHAT_FIELD.prepend(companionTmplClone);
+    UI_ELEMENTS.CHAT_FIELD.append(companionTmplClone);
 };
 
 function sendMyMessage(event, item) {
@@ -173,7 +173,7 @@ function sendMyMessage(event, item) {
         const myTmplTime = myTmplClone.querySelector('.message-time');
         myTmplText.textContent = item.user.name + ': ' + item.text;
         myTmplTime.textContent = getTime();
-        UI_ELEMENTS.CHAT_FIELD.prepend(myTmplClone);
+        UI_ELEMENTS.CHAT_FIELD.append(myTmplClone);
     
         UI_ELEMENTS.INPUT_MESSAGE.value = '';
     } else {

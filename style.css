@@ -104,7 +104,7 @@ body {
 
 .chat-field {
     display: flex;
-    flex-direction: column-reverse;
+    flex-direction: column;
     width: 302px;
     height: 437px;
     border: 1px solid black;
