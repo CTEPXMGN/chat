@@ -46,12 +46,24 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
+.status {
+    display: flex;
+    width: 320px;
+    height: 40px;
+    background-color: white;
+    margin: 50px auto;
+    margin-bottom: 10px;
+    border: 1px solid black;
+    justify-content: center;
+    align-items: center;
+}
+
 .wrapper {
     display: flex;
     width: 320px;
     height: 535px;
     background-color: white;
-    margin: 100px auto;
+    margin: 10px auto;
     border: 1px solid black;
     flex-wrap: wrap;
 }

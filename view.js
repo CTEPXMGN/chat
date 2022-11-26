@@ -23,6 +23,7 @@ export const UI_ELEMENTS = {
     CONFIRM_MODAL_INPUT_TOKEN: document.querySelector('.confirm-modal__input-token'),
     CONFIRM_MODAL_BUTTON: document.querySelector('.confirm-modal__button'),
     POPUP: document.querySelector('.popup'),
+    STATUS: document.querySelector('.status-text'),
 };
 
 export const URLS ={
