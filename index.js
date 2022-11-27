@@ -49,8 +49,8 @@ function saveCoockie(event) {
     showSettings();
 };
 
-let firstIndex = 0;
-let lastIndex = 20;
+let firstIndex = 280;
+let lastIndex = 300;
 
 async function getHistory() {
     const response = await fetch(URLS.URL_MESSAGES, {
@@ -67,14 +67,38 @@ async function getHistory() {
     
     historyOfMessages.set(messages);
     
-    let history = historyOfMessages.get();
+    let history = historyOfMessages.get().slice(firstIndex, lastIndex);
+    // console.log(history);
+    firstIndex -= 20;
+    lastIndex -= 20;
 
-    for (let i = firstIndex; i < lastIndex; i++) {
-        if (history[i].user.email === email) {
-            renderMessage(history[i], messageClasses.my);
+    history.forEach(elem => {
+        if (elem.user.email === email) {
+            renderMessage(elem, messageClasses.my);
         } else {
-            renderMessage(history[i], messageClasses.companion);
+            renderMessage(elem, messageClasses.companion);
         };
+    });
+};
+
+function getMessagesFromStorage() {
+    if (firstIndex >= 0) {
+        let history = historyOfMessages.get().slice(firstIndex, lastIndex).reverse();
+        // console.log(history);
+        firstIndex -= 20;
+        lastIndex -= 20;
+
+        if (firstIndex <= 0) {
+            UI_ELEMENTS.STATUS.textContent = 'Сообщений больше нет.';
+        }
+    
+        history.forEach(elem => {
+            if (elem.user.email === email) {
+                renderMessage(elem, messageClasses.my, 'method');
+            } else {
+                renderMessage(elem, messageClasses.companion, 'method');
+            };
+        });
     };
 };
 
@@ -143,15 +167,11 @@ function connect() {
     socket = new WebSocket(`wss://edu.strada.one/websockets?${getCookie('token')}`);
 
     socket.onopen = function(e) {
-        // let date = new Date();
-        // console.log('Connected...  ' + date); 
         UI_ELEMENTS.STATUS.textContent = 'Connected...';
     };
 
     socket.onclose = function(e) {
         UI_ELEMENTS.STATUS.textContent = 'Disconnected...';
-        // let date = new Date();
-        // console.log('Disconnected... ' + date);
         connect();
     };
 };
@@ -183,19 +203,26 @@ function sendMessage(e) {
     UI_ELEMENTS.INPUT_MESSAGE.value = '';
 };
 
-function renderMessage(item, classMessage) {
+function renderMessage(item, classMessage, method) {
     const tmplClone = UI_ELEMENTS.TMPL.cloneNode(true).querySelector('.message');
     tmplClone.classList.add(classMessage);
     const tmplText = tmplClone.querySelector('.message-text');
     const tmplTime = tmplClone.querySelector('.message-time');
     tmplText.textContent = item.user.name + ': ' + item.text;
     tmplTime.textContent = getTime(item.createdAt);
-    UI_ELEMENTS.CHAT_FIELD.append(tmplClone);
-    tmplClone.scrollIntoView(false);
+    if (method) {
+        UI_ELEMENTS.CHAT_FIELD.prepend(tmplClone);
+    } else {
+        UI_ELEMENTS.CHAT_FIELD.append(tmplClone);
+        tmplClone.scrollIntoView(false);
+    }
+    
 };
 
 function loadMessages() {
     if (this.scrollTop === 0) {
         console.log('Конец страницы.');
+        getMessagesFromStorage();
     };
+
 };
