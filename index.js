@@ -1,5 +1,5 @@
 import {UI_ELEMENTS, URLS, email, messageClasses} from "./view.js";
-// import format from 'date-fns/format';
+import {historyOfMessages} from "./storage.js";
 
 UI_ELEMENTS.SETTINGS_BUTTON.addEventListener('click', showSettings);
 UI_ELEMENTS.SETTINGS_MODAL_CLOSE.addEventListener('click', hideSettings);
@@ -49,6 +49,9 @@ function saveCoockie(event) {
     showSettings();
 };
 
+let firstIndex = 0;
+let lastIndex = 20;
+
 async function getHistory() {
     const response = await fetch(URLS.URL_MESSAGES, {
         method: 'GET',
@@ -59,27 +62,23 @@ async function getHistory() {
     });
     let result = await response.json();
     const messages = result.messages.reverse();
-    console.log(messages);
 
-    for (let i = 0; i <= 20; i++) {
-        if (messages[i].user.email === email) {
-            renderMessage(element, messageClasses.my);
+    console.log(messages); // Вывод всех сообщений в консоль
+    
+    historyOfMessages.set(messages);
+    
+    let history = historyOfMessages.get();
+
+    for (let i = firstIndex; i < lastIndex; i++) {
+        if (history[i].user.email === email) {
+            renderMessage(history[i], messageClasses.my);
         } else {
-            renderMessage(messages[i], messageClasses.companion);
+            renderMessage(history[i], messageClasses.companion);
         };
     };
 };
 
-// function scrollDown() {
-//     console.log('!!!');
-//     UI_ELEMENTS.CHAT_FIELD.scrollBy({
-//         top: 40000,
-
-//     });
-// }
-
 async function getUser() {
-
     await fetch(URLS.URL_NAME, {
         method: 'GET',
         headers: {
@@ -138,18 +137,25 @@ async function getCode(event) {
     };
 };
 
-const socket = new WebSocket(`wss://edu.strada.one/websockets?${getCookie('token')}`);
+let socket = new WebSocket(`wss://edu.strada.one/websockets?${getCookie('token')}`);
 
-socket.onopen = function(e) {
-    console.log('Connected...');
-    UI_ELEMENTS.STATUS.textContent = 'Connected...';
-};
+function connect() {
+    socket = new WebSocket(`wss://edu.strada.one/websockets?${getCookie('token')}`);
 
-socket.onclose = function(e) {
-    UI_ELEMENTS.STATUS.textContent = 'Disconnected...';
-    console.log('Disconnected...');
-    socket.onopen;
+    socket.onopen = function(e) {
+        // let date = new Date();
+        // console.log('Connected...  ' + date); 
+        UI_ELEMENTS.STATUS.textContent = 'Connected...';
+    };
+
+    socket.onclose = function(e) {
+        UI_ELEMENTS.STATUS.textContent = 'Disconnected...';
+        // let date = new Date();
+        // console.log('Disconnected... ' + date);
+        connect();
+    };
 };
+connect();
 
 if (getCookie('token')) {
     getHistory();
@@ -159,16 +165,6 @@ if (getCookie('token')) {
 
 function sendMessage(e) {
     e.preventDefault();
-
-    // socket.send(JSON.stringify({ text: UI_ELEMENTS.INPUT_MESSAGE.value }));
-    // socket.onmessage = function(event) {
-    //     const data = JSON.parse(event.data);
-    //     if (data.user.email === email) {
-    //         renderMessage(data, messageClasses.my);
-    //     } else {
-    //         renderMessage(data, messageClasses.companion);
-    //     };
-    // };
 
     if (UI_ELEMENTS.INPUT_MESSAGE.value) {
         socket.send(JSON.stringify({ text: UI_ELEMENTS.INPUT_MESSAGE.value }));
