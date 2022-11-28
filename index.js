@@ -11,7 +11,7 @@ UI_ELEMENTS.SIGN_MODAL_CLOSE.addEventListener('click', hideSignIn);
 UI_ELEMENTS.CONFIRM_MODAL_CLOSE.addEventListener('click', hideConfirm);
 UI_ELEMENTS.CONFIRM_MODAL_FORM.addEventListener('submit', saveCoockie);
 // UI_ELEMENTS.STATUS.addEventListener('click', scrollDown);
-UI_ELEMENTS.CHAT_FIELD.addEventListener('scroll', loadMessages);
+UI_ELEMENTS.CHAT_FIELD.addEventListener('scroll', checkScroll);
 
 function showSettings() {
     UI_ELEMENTS.SETTINGS_MODAL.classList.remove('hide');
@@ -68,7 +68,7 @@ async function getHistory() {
     historyOfMessages.set(messages);
     
     let history = historyOfMessages.get().slice(firstIndex, lastIndex);
-    // console.log(history);
+
     firstIndex -= 20;
     lastIndex -= 20;
 
@@ -83,8 +83,9 @@ async function getHistory() {
 
 function getMessagesFromStorage() {
     if (firstIndex >= 0) {
+
         let history = historyOfMessages.get().slice(firstIndex, lastIndex).reverse();
-        // console.log(history);
+
         firstIndex -= 20;
         lastIndex -= 20;
 
@@ -183,10 +184,14 @@ if (getCookie('token')) {
     showSignIn();
 };
 
+function checkInput() {
+    return !!UI_ELEMENTS.INPUT_MESSAGE.value.trim();
+};
+
 function sendMessage(e) {
     e.preventDefault();
 
-    if (UI_ELEMENTS.INPUT_MESSAGE.value) {
+    if (checkInput()) {
         socket.send(JSON.stringify({ text: UI_ELEMENTS.INPUT_MESSAGE.value }));
         socket.onmessage = function(event) {
             const data = JSON.parse(event.data);
@@ -219,10 +224,9 @@ function renderMessage(item, classMessage, method) {
     
 };
 
-function loadMessages() {
+function checkScroll() {
     if (this.scrollTop === 0) {
         console.log('Конец страницы.');
         getMessagesFromStorage();
     };
-
 };
